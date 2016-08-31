@@ -1,0 +1,22 @@
+{
+  "name": "devtest",
+  "version": "0.0.1",
+  "description": "alpha",
+  "main": "index.html",
+  "author": "Mantyz",
+  "window": {
+  	"icon": "favicon.png",
+    "toolbar": false,
+    "frame": false,
+    "width": 1280,
+    "height": 1000
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "browser-serialport": "^2.0.3",
+    "serialport": "^4.0.1"
+  },
+  "dependencies": {
+    "bindings": "^1.2.1"
+  }
+}
