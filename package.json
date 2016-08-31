@@ -1,6 +1,7 @@
 {
   "name": "devtest",
   "version": "0.0.1",
+  "private": true,
   "description": "alpha",
   "main": "index.html",
   "author": "Mantyz",
