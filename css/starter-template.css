@@ -18,6 +18,7 @@ button {
   top: 0;
   right: 0;
   left: 0;
+  border: 0px;
 }
 #page
 {
@@ -47,6 +48,13 @@ button {
 .starter-template {
   padding: 40px 15px;
   text-align: left;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  right: 0;
+  left: 200px;
+  z-index: 0;
+
   /*background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);*/
 }
 .navbar-brand {

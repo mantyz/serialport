@@ -14,11 +14,14 @@
 		position:fixed;
 		margin:0 -15px;
 		height:100vh;
-		width:inherit;
+		width:200px;
 		overflow:auto;
 		border-top-width:0;
 		border-bottom-width:0;
 		border-radius:0;
+		border: 0;
+		border-right: 1px solid transparent;
+		border-color: #555;
 		/*background-color: #262626;*/
 	}
 	.navbar-fixed-side .container,
