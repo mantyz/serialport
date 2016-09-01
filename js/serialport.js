@@ -30,11 +30,11 @@ var comm = SerialPort.list(function(err, ports, com) {
 /*var port1 = list();*/
 console.log(comm);
 
-var comPort = new SerialPort('COM6', {
+var comPort = new SerialPort('COM4', {
 	autoOpen: false,
 	baudrate: 19200,
 	//parser: serialPort.parsers.byteDelimiter([50,53]),
-	parser: SerialPort.parsers.readline("\r\n"),
+	//parser: SerialPort.parsers.readline("\r\n"),
 	//parser: serialPort.parsers.byteLength(100)
 });
 

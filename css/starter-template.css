@@ -1,47 +1,50 @@
-html
-{
-	height: 100vh;
-}
-body {
-  background-color: #ffffff;
-  padding-top: 30px;
-  min-height: 100vh;
+html {
+    height: 100vh;
 }
 
-button, a {
-  -webkit-app-region: no-drag;
+body {
+    background-color: #ffffff;
+    padding-top: 30px;
+    min-height: 100vh;
+}
+
+button,
+a {
+    -webkit-app-region: no-drag;
 }
 
 #Controls {
-  -webkit-app-region: drag;
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  border: 0px;
+    -webkit-app-region: drag;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    border: 0px;
 }
-#page
-{
-	position: absolute;
+
+#page {
+    position: absolute;
     bottom: 0;
     top: 30px;
     right: 0;
     left: 0;
     z-index: 0;
 }
-#win-close
-{
-  padding: 0;
-  cursor: default;
-  font-family:Arial;
-  font-size:28px; 
-  font-weight:bold;
-  color:gray;
+
+#win-close {
+    padding: 0;
+    cursor: default;
+    font-family: Arial;
+    font-size: 24px;
+    font-weight: bold;
+    color: gray;
 }
-#win-close:hover
-{
-  color:#ff6666;
+
+#win-close:hover {
+    color: #ff6666;
 }
+
+
 /*.screen {
   -webkit-app-region: no-drag;
   position: absolute;
@@ -51,23 +54,24 @@ button, a {
   left: 0;
 }*/
 
+
 /*#Controls:hover .screen {
   display: none;
 }*/
 
 .starter-template {
-  padding: 40px 15px;
-  text-align: left;
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  right: 0;
-  left: 200px;
-  overflow: auto;
-  z-index: 0;
-
-  /*background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);*/
+    padding: 40px 15px;
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 200px;
+    overflow: auto;
+    z-index: 0;
+    /*background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);*/
 }
+
 .navbar-brand {
     float: left;
     height: 30px;
@@ -76,32 +80,31 @@ button, a {
     line-height: 27px;
     padding-left: 10px;
 }
-.navbar-btn.btn-xs
-{
-	margin: 0;
-}
-.navbar
-{
-	min-height: 30px;
-}
-.navbar-nav {
 
+.navbar-btn.btn-xs {
+    margin: 0;
 }
-.text
-{
-	-webkit-user-select: none;
-	-webkit-app-region: drag;
+
+.navbar {
+    min-height: 30px;
 }
-.navbar-fixed-top
-{
-	border-width: 0;
+
+.navbar-nav {}
+
+.text {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
 }
-.navbar-right
-{
-	margin-right: 0;
+
+.navbar-fixed-top {
+    border-width: 0;
 }
-.container-fluid
-{
-	background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
-	/*overflow: auto;*/
+
+.navbar-right {
+    margin-right: 0;
+}
+
+.container-fluid {
+    background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+    /*overflow: auto;*/
 }
