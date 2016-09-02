@@ -14,23 +14,21 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 
 //List ports
+var com;
 
-var comm = SerialPort.list(function(err, ports, com) {
+SerialPort.list(function(err, ports) {
 	ports.forEach(function(port, i) {
 		$("#select").append($('<option value="' + i + '">' + port.comName + '</option>'));
+		//$("#select").append($('<option value="' + i + '">' + port.comName + '</option>'));
 	});
-
 	com = $("#select option:selected").text();
 	//var comports = com.toString();
 	console.log(com);
-	return com;
-
 });
 
-/*var port1 = list();*/
-console.log(comm);
+console.log(com);
 
-var comPort = new SerialPort('COM4', {
+var comPort = new SerialPort(com, {
 	autoOpen: false,
 	baudrate: 19200,
 	//parser: serialPort.parsers.byteDelimiter([50,53]),
