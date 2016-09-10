@@ -6,7 +6,7 @@
   "main": "index.html",
   "author": "Mantyz",
   "window": {
-  	"icon": "favicon.png",
+    "icon": "favicon.png",
     "toolbar": false,
     "frame": false,
     "width": 1280,
