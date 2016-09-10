@@ -138,9 +138,9 @@ $("#select").change(function() {
 			$('#textarea2').append("Disconnect\n");
 		});
 	});
+});
 
-
-	$("#win-close").click(function() {
+$("#win-close").click(function() {
 		win.on('close', function() {
 			this.hide();
 			this.close(true);
@@ -148,4 +148,3 @@ $("#select").change(function() {
 
 		win.close();
 	});
-});
