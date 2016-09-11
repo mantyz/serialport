@@ -1,0 +1,12 @@
+<div id="g_map" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;"></div>
+<script>
+function myMap() {
+    var mapCanvas = document.getElementById("g_map");
+    var mapOptions = {
+        center: new google.maps.LatLng(59.92, 30.34),
+        zoom: 10
+    };
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+}
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNB1xj-SLu-gBnQJdDLpHhn72So4hZlY0&callback=myMap"></script>

@@ -10,7 +10,9 @@
     "toolbar": false,
     "frame": false,
     "width": 1280,
-    "height": 1000
+    "height": 1000,
+    "min_width": 1280,
+    "min_height": 1000
   },
   "devDependencies": {
     "bootstrap": "^3.3.7",
