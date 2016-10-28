@@ -1,149 +1,102 @@
-/* jshint node: true */
-/* jshint browser: true */
-/* global $ */
-
 "use strict";
+
+var CALL_READY = "\r\nCall Ready\r\n";
+var V110 = "AT+CBST=71,0,1;D +79117467352\r\n";
+var CREG = "\r\n+CREG: 0,1\r\n\r\nOK\r\n";
+var creg_time = null;
 
 require('events').EventEmitter.prototype._maxListeners = Infinity;
 
 var SerialPort = require('serialport');
-var fs = require('fs');
-var gui = require('nw.gui');
-var win = gui.Window.get();
+//var fs = require('fs');
 
 
-//List ports
-SerialPort.list(function(err, ports) {
-	ports.forEach(function(port, i) {
-		$("#select").append($('<option value="' + i + '">' + port.comName + '</option>'));
-		//$("#select").append($('<option value="' + i + '">' + port.comName + '</option>'));
-	});
-	//com.port = $("#select option:selected").text();
+
+var comPort = new SerialPort("COM7", {
+	autoOpen: false,
+	baudrate: 19200,
+	//parser: serialPort.parsers.byteDelimiter([50,53]),
+	//parser: SerialPort.parsers.readline('\n')
+	//parser: serialPort.parsers.byteLength(100)
 });
-//var com;
 
-$(document).ready(function() {
 
-	$("#select").change(function() {
-		var com = "";
-		$("#select option:selected").each(function() {
-			com = $(this).text();
-		});
-		$("#test").text(com);
-		var comPort = new SerialPort(com, {
-			autoOpen: false,
-			baudrate: 19200,
-			//parser: serialPort.parsers.byteDelimiter([50,53]),
-			//parser: SerialPort.parsers.readline("\r\n"),
-			//parser: serialPort.parsers.byteLength(100)
-		});
 
-		var writerStream = fs.createWriteStream("../tmp/test1.txt");
-
-		//Open port
-		$("#open").click(function() {
-			comPort.open(function(err) {
-				if (err) {
-					return $('#textarea2').append('Error opening port: ', err.message, "\n");
-				} else {
-					$('#textarea2').append('Port open: ', comPort.isOpen(), '\n');
-				}
-			});
-		});
-
-		//Send command to device
-		function send(string) {
-			if (comPort.isOpen()) {
-				comPort.write(string + "\r\n", function(err) {
-					if (err) {
-						return console.log('Write error: ', err.message);
-					} else {
-						console.log('cmd transmit');
-						//$('#textarea2').append('cmd transmit\n');
-					}
-				});
-			} else {
-				$('#textarea2').append('Port close.\n');
-			}
+//Open port
+$("#open").click(function() {
+	comPort.open(function(err) {
+		if (err) {
+			return $('#textarea2').append('Error opening port: ', err.message, "\n");
+		} else {
+			$('#textarea2').append('Port open: ', comPort.isOpen(), '\n');
 		}
+	});
+});
 
-		$('#send').click(function() {
-			var text = $('#input_txt').val();
-			var string = text.toString('UTF8');
-			send(string);
-			$('#textarea2').append(string, "\n");
-		});
-		/*comPort.on('open', function() {
-			var text = $('#input_txt').val();
-			var string = text.toString('UTF8');
-
-			var timer = setTimeout(function tick() {
-
-				if (comPort.isOpen()) {
-
-					comPort.write(string + "\r\n", function(err) {
-						if (err) {
-							return console.log('Write error: ', err.message);
-						}
-
-						console.log('cmd transmit', text);
-						$('#textarea2').append('cmd transmit\n');
-					});
-
-					timer = setTimeout(tick, 2000);
-				} else {
-					clearTimeout(timer);
-					$('#textarea2').append('Port close. Timer stop\n');
-					console.log(timer);
-				}
-			}, 2000);
-
-		});*/
-
-		comPort.on('data', function(data) {
-
-			var buf = new Buffer(data, 'utf8');
-			var str = buf.toString('utf8');
-			//console.log(str);
-
-			$('#textarea').append(str);
-
-			var textareaId = $('.form-control');
-			if (textareaId.length) {
-				textareaId.scrollTop(textareaId[0].scrollHeight - textareaId.height());
+//Send command to device
+function send(string) {
+	if (comPort.isOpen()) {
+		comPort.write(string + "\r\n", function(err) {
+			if (err) {
+				return console.log('Write error: ', err.message);
+			} else {
+				//console.log('cmd transmit');
+				//$('#textarea2').append('cmd transmit\n');
 			}
-
-			writerStream.write(str, 'utf8', function(err) {
-				//writerStream.end();
-			});
-			writerStream.on('finish', function() {
-				//console.log('Write completed');
-			});
-			writerStream.on('error', function(err) {
-				//console.log(err.stack);
-			});
 		});
+	} else {
+		$('#textarea2').append('Port close.\n');
+	}
+}
 
+$('#send').click(function() {
+	var text = $('#input_txt').val();
+	var string = text.toString('UTF8');
+	send(string);
+	$('#textarea2').append(string, "\n");
+});
 
-		$("#dis").click(function() {
-			comPort.close(function(err) {
-				if (err) {
-					return $('#textarea2').append("Error: ", err.message, "\n");
-				}
-				com = null;
-				$('#textarea2').append("Disconnect\n");
-			});
-		});
-	});
+comPort.on('data', function(data) {
+	var buf = Buffer.from(data, 'utf8');
+	var str = buf.toString('utf8');
+	console.log(str);
+
+	if (str == CALL_READY) {
+		//console.log(CALL_READY);
+		setTimeout(send, 100, "ATE0\r\n");
+		creg_time = setTimeout(function tick() {
+			send("AT+CREG?\r\n");
+			creg_time = setTimeout(tick, 1000);
+		}, 1000);
+		console.log(creg_time);
+	}
+	if (str == CREG) {
+		clearInterval(creg_time);
+		console.log("creg blya");
+		send(V110);
+		/*while (str !== CREG) {
+			setTimeout(send, 1000, "AT+CREG?\r\n");
+		}*/
+	}
+
+	$('#textarea').append(str);
+
+	var textareaId = $('.form-control');
+	if (textareaId.length) {
+		textareaId.scrollTop(textareaId[0].scrollHeight - textareaId.height());
+	}
 
 });
 
 
-$("#win-close").click(function() {
-	win.on('close', function() {
-		this.hide();
-		this.close(true);
-	});
-
-	win.close();
+$("#dis").click(function() {
+	setTimeout(comPort.close(function(err) {
+		if (err) {
+			return $('#textarea2').append("Error: ", err.message, "\n");
+		}
+		//com = null;
+		$('#textarea2').append("Disconnect\n");
+	}), 3000);
 });
+
+//delete require.cache[serialport];

@@ -53,5 +53,5 @@ function select_db() {
 }
 
 $(document).ready(function() {
-	$(document).on('click', '#select', select_db);
+	$(document).on('click', '#query', select_db);
 });

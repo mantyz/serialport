@@ -1,11 +1,10 @@
-/* jshint node: true */
-/* jshint browser: true */
-/* global $ */
-
 "use strict";
 
+let gui = require('nw.gui');
+let win = gui.Window.get();
+
 $("#map").click(function() {
-	$(".starter-template").load("views/map.html", function(response, status, xhr) {
+	$(".starter-template").load("views/map.html", function(response, status) {
 		if (status == "error") {
 			console.log("error");
 		} else {
@@ -33,3 +32,12 @@ $("#db").click(function() {
 function selected() {
 	
 }
+
+$("#win-close").click(function() {
+	win.on('close', function() {
+		this.hide();
+		this.close(true);
+	});
+
+	win.close();
+});
