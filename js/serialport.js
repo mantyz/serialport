@@ -1,7 +1,7 @@
 "use strict";
 
 var CALL_READY = "\r\nCall Ready\r\n";
-var V110 = "AT+CBST=71,0,1;D +79117467352\r\n";
+var V110 = "AT+CBST=71,0,1\r\n";
 var CREG = "\r\n+CREG: 0,1\r\n\r\nOK\r\n";
 var creg_time = null;
 
